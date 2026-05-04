@@ -1,22 +1,53 @@
 # Tasks: Unified API key gateway — one key per project that provisions and proxies all third-party tool API keys
 
 ## Implementation Tasks
-- [ ] 1. Plan And Scope
-- [ ] 1.1 Represent the idea as a concrete user workflow.
-- [ ] 1.2 Include acceptance tests or manual verification steps.
-- [ ] 1.3 Product Planner: MVP Workflow for Unified API Key Gateway:.
-- [ ] 2. Backend And Data
-- [ ] 2.1 CLI initializes a local encrypted JSON/YAML file storing third-party API keys (AES-256 encrypted).
-- [ ] 2.2 CLI generates a single unified API key per project (UUID or JWT-based).
-- [ ] 2.3 This key proxies all API calls to third-party tools via a local proxy server.
-- [ ] 3. Handoff And Documentation
-- [ ] 3.1 Document what the larger engineering crew should improve next.
-- [ ] 4. Additional Implementation
-- [ ] 4.1 Create one runnable local draft project.
-- [ ] 4.2 **CLI-first Local Setup:**.
-- [ ] 4.3 Developer installs CLI tool per project.
-- [ ] 4.4 **Unified Key Generation:**.
+- [ ] 1. Product Workflow
+- [ ] 1.1 CLI initializes a local encrypted JSON/YAML file storing third-party API keys (AES-256 encrypted).
+- [ ] 1.2 CLI generates a single unified API key per project (UUID or JWT-based).
+- [ ] 1.3 This key proxies all API calls to third-party tools via a local proxy server.
+- [ ] 1.4 Runs locally, intercepts calls authenticated with unified key.
+- [ ] 1.5 Maps requests to stored third-party keys and forwards them securely.
+- [ ] 2. Backend APIs
+- [ ] 2.1 Implement `POST /projects` endpoint in the local proxy API.
+- [ ] 2.2 Create a project with a unified API key (UUID). Returns project ID and unified key.
+- [ ] 2.3 Implement `POST /projects/{projectId}/keys` endpoint in the local proxy API.
+- [ ] 2.4 Add third-party API key metadata (service name, encrypted key blob). Returns key ID.
+- [ ] 2.5 Implement `GET /projects/{projectId}/proxy/{serviceName}/request` endpoint in the local proxy API.
+- [ ] 2.6 Proxy a request to the third-party API using stored key. Accepts method, path, headers, body. Returns proxied response.
+- [ ] 3. Frontend UI
+- [ ] 3.1 # Implementation Plan: Unified API key gateway — one key per project that provisions and proxies all third-party tool API keys.
+- [ ] 3.2 Create a working proof of concept that demonstrates the core value of `Unified API key gateway — one key per project that provisions and...
+- [ ] 3.3 Represent the idea as a concrete user workflow.
+- [ ] 3.4 Create one runnable local draft project.
+- [ ] 3.5 Include acceptance tests or manual verification steps.
+- [ ] 4. Security And Access
+- [ ] 4.1 Generate a single unified API key per project stored encrypted locally (e.g., AES-256).
+- [ ] 4.2 Proxy third-party API keys via local agent reading from encrypted config files.
+- [ ] 4.3 Generate one project-level API key that proxies requests to third-party APIs.
+- [ ] 4.4 Proxy layer must authenticate requests, inject correct third-party keys, and forward responses transparently.
+- [ ] 4.5 Store third-party keys encrypted with AES-256 at rest and TLS in transit.
+- [ ] 5. Data And Storage
+- [ ] 5.1 Zero-config, file-backed, and embeddable—perfect for CLI-first, local use.
+- [ ] 5.2 Supports encryption extensions (e.g., SQLCipher) for AES-256 at rest.
+- [ ] 5.3 Easy to bundle and deploy without external dependencies.
+- [ ] 6. Infrastructure And Delivery
+- [ ] 6.1 Deployment Shape for Unified API Key Gateway.
+- [ ] 6.2 Use AWS Lambda for API proxying and key rotation logic (serverless, scales on demand).
+- [ ] 6.3 Store encrypted keys in AWS Secrets Manager or DynamoDB with KMS encryption for durability and auditability.
+- [ ] 6.4 Use API Gateway to expose the unified key endpoint with throttling and RBAC via Cognito or IAM.
+- [ ] 6.5 Enable CloudWatch Logs for audit trails and anomaly detection.
+- [ ] 7. Documentation And Handoff
+- [ ] 7.1 Generate one project-level API key that proxies requests to third-party APIs.
+- [ ] 7.2 Proxy layer must authenticate requests, inject correct third-party keys, and forward responses transparently.
+- [ ] 7.3 Store third-party keys encrypted with AES-256 at rest and TLS in transit.
+- [ ] 7.4 Implement zero-knowledge encryption or client-side encryption to prevent operator access to raw keys.
+- [ ] 8. Acceptance Checks
+- [ ] 8.1 Unified key proxies requests correctly with no direct exposure of third-party keys.
+- [ ] 8.2 Keys are encrypted at rest and in transit; operator cannot decrypt raw keys.
+- [ ] 8.3 RBAC enforced; audit logs capture all relevant events.
+- [ ] 8.4 CLI tool creates and manages keys and config files locally without external dependencies.
+- [ ] 8.5 Demo completes within one focused session, proving core concept without paid services or fragile integrations.
 
 ## Tracking
-- [ ] 5. Validate all implemented tasks against acceptance tests for `Unified API key gateway — one key per project that provisions and proxies all third-party tool API keys`.
-- [ ] 6. Mark this OpenSpec change ready for handoff.
+- [ ] 9. Validate all implemented tasks against acceptance tests for `Unified API key gateway — one key per project that provisions and proxies all third-party tool API keys`.
+- [ ] 10. Mark this OpenSpec change ready for handoff.
