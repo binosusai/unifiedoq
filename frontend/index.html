@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unified API key gateway — one key per project that provisions and proxies all third-party tool API keys</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <p class="eyebrow">money POC</p>
+        <h1>Unified API key gateway — one key per project that provisions and proxies all third-party tool API keys</h1>
+        <p class="summary">Developers manage dozens of API keys across tools; one unified key per project reduces setup friction, centralizes credential management, and lets teams onboard new tools with a single click</p>
+
+        <form id="idea-form">
+          <label for="idea-input">Input</label>
+          <textarea id="idea-input" name="input" rows="8" placeholder="Paste a customer note, workflow, landing page copy, or rough project input..."></textarea>
+          <button type="submit">Run POC</button>
+        </form>
+
+        <section class="output" aria-live="polite">
+          <h2>Recommendation</h2>
+          <p id="result">Run the POC to generate the first recommendation.</p>
+        </section>
+
+        <section class="gateway-panel">
+          <h2>Project Key Management</h2>
+
+          <div class="field-row">
+            <input type="text" id="project-name" placeholder="Project name (e.g. team-alpha)" />
+            <button id="create-project-btn">Create Key</button>
+          </div>
+          <div class="key-display" id="key-display" hidden>
+            <label for="issued-key">Issued API Key</label>
+            <input type="text" id="issued-key" readonly />
+          </div>
+
+          <h2>Mock Proxy</h2>
+          <div class="field-row">
+            <input type="text" id="proxy-key" placeholder="API key (pk_...)" />
+            <input type="text" id="provider-name" placeholder="Provider" value="openai" />
+          </div>
+          <textarea id="proxy-payload" rows="4" placeholder='{"prompt": "hello world"}'></textarea>
+          <button id="run-proxy-btn">Run Mock Proxy</button>
+          <pre id="proxy-result"></pre>
+        </section>
+      </section>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>

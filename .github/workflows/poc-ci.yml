@@ -1,0 +1,25 @@
+name: POC checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  # Future GitHub org form:
+  # ci:
+  #   uses: your-org/platform/.github/workflows/python-poc-ci.yml@main
+  #   with:
+  #     backend_path: backend/app.py
+  #
+  # Local platform source for this workspace:
+  # /home/runner/work/ideate/platform/github-actions/python-poc-ci.yml
+  backend-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile backend
+        run: python -m py_compile backend/app.py
